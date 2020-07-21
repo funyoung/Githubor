@@ -18,14 +18,15 @@ import com.shuyu.github.kotlin.common.style.GSYIconfont
 import com.shuyu.github.kotlin.common.utils.CommonUtils
 import com.shuyu.github.kotlin.di.AppInjector
 import com.tencent.bugly.crashreport.CrashReport
+import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasActivityInjector
+import dagger.android.HasAndroidInjector
 import io.realm.Realm
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
 
-class GSYGithubApplication : Application(), HasActivityInjector {
+class GSYGithubApplication : Application(), HasAndroidInjector {
 
     companion object {
         var instance: GSYGithubApplication by Delegates.notNull()
@@ -39,7 +40,7 @@ class GSYGithubApplication : Application(), HasActivityInjector {
      * DispatchingAndroidInjector通过AndroidInjector.Factory创建AndroidInjector
      */
     @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
+    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
 
     override fun onCreate() {
         super.onCreate()
@@ -88,5 +89,5 @@ class GSYGithubApplication : Application(), HasActivityInjector {
         })
     }
 
-    override fun activityInjector() = dispatchingAndroidInjector
+    override fun androidInjector(): AndroidInjector<Any> = dispatchingAndroidInjector
 }

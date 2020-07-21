@@ -24,8 +24,9 @@ import com.shuyu.github.kotlin.module.repos.file.ReposFileListFragment
 import com.shuyu.github.kotlin.module.repos.issue.ReposIssueListFragment
 import com.shuyu.github.kotlin.module.repos.readme.ReposReadmeFragment
 import com.shuyu.github.kotlin.ui.adapter.FragmentPagerViewAdapter
+import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
-import dagger.android.support.HasSupportFragmentInjector
+import dagger.android.HasAndroidInjector
 import devlight.io.library.ntb.NavigationTabBar
 import kotlinx.android.synthetic.main.activity_repos_detail.*
 import org.jetbrains.anko.browse
@@ -40,7 +41,7 @@ import javax.inject.Inject
  */
 
 @Route(path = ARouterAddress.ReposDetailActivity)
-class ReposDetailActivity : BaseActivity(), HasSupportFragmentInjector, ARouterInjectable {
+class ReposDetailActivity : BaseActivity(), HasAndroidInjector, ARouterInjectable {
 
     companion object {
 
@@ -66,7 +67,7 @@ class ReposDetailActivity : BaseActivity(), HasSupportFragmentInjector, ARouterI
 
 
     @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
+    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
 
 
     @Inject
@@ -111,7 +112,7 @@ class ReposDetailActivity : BaseActivity(), HasSupportFragmentInjector, ARouterI
 
     }
 
-    override fun supportFragmentInjector() = dispatchingAndroidInjector
+    override fun androidInjector() : AndroidInjector<Any> = dispatchingAndroidInjector
 
 
     override fun getToolBar(): Toolbar = repos_detail_toolbar

@@ -17,7 +17,7 @@ import com.shuyu.github.kotlin.model.AppGlobalModel
 import com.shuyu.github.kotlin.module.ARouterAddress
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
-import dagger.android.support.HasSupportFragmentInjector
+import dagger.android.HasAndroidInjector
 import kotlinx.android.synthetic.main.activity_user_info.*
 import javax.inject.Inject
 
@@ -27,7 +27,7 @@ import javax.inject.Inject
  * Date: 2018-11-19
  */
 @Route(path = ARouterAddress.UserInfoActivity)
-class UserInfoActivity : AppCompatActivity(), Injectable, HasSupportFragmentInjector {
+class UserInfoActivity : AppCompatActivity(), Injectable, HasAndroidInjector {
 
     companion object {
         fun gotoUserInfo() {
@@ -46,12 +46,12 @@ class UserInfoActivity : AppCompatActivity(), Injectable, HasSupportFragmentInje
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
+    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
 
     @Inject
     lateinit var globalAppModel: AppGlobalModel
 
-    override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector
+    override fun androidInjector(): AndroidInjector<Any> = dispatchingAndroidInjector
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

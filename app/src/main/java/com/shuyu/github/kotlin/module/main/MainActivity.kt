@@ -19,8 +19,9 @@ import com.shuyu.github.kotlin.repository.LoginRepository
 import com.shuyu.github.kotlin.repository.ReposRepository
 import com.shuyu.github.kotlin.ui.adapter.FragmentPagerViewAdapter
 import com.shuyu.github.kotlin.ui.view.GSYNavigationTabBar
+import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
-import dagger.android.support.HasSupportFragmentInjector
+import dagger.android.HasAndroidInjector
 import devlight.io.library.ntb.NavigationTabBar
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
@@ -29,7 +30,7 @@ import javax.inject.Inject
 /**
  * 主页
  */
-class MainActivity : AppCompatActivity(), HasSupportFragmentInjector, Toolbar.OnMenuItemClickListener {
+class MainActivity : AppCompatActivity(), HasAndroidInjector, Toolbar.OnMenuItemClickListener {
 
     companion object {
         init {
@@ -44,7 +45,7 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector, Toolbar.On
     lateinit var globalModel: AppGlobalModel
 
     @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
+    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
 
     /**
      * fragment列表
@@ -89,7 +90,7 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector, Toolbar.On
 
     }
 
-    override fun supportFragmentInjector() = dispatchingAndroidInjector
+    override fun androidInjector() : AndroidInjector<Any> = dispatchingAndroidInjector
 
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
